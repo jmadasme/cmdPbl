@@ -14,7 +14,7 @@ jobs:
       - name: Clonar repositorio privado
         uses: actions/checkout@v3
         with:
-          repository: 'usuario/repositorio-privado'  # Reemplazar con el nombre del repositorio privado
+          repository: 'jmadasme/cmd'  # Reemplazar con el nombre del repositorio privado
           token: ${{ secrets.GH_TOKEN }}
 
       # Paso 2: Configurar Python
