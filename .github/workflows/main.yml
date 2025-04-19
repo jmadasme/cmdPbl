@@ -1,0 +1,36 @@
+name: Leer y borrar archivos .txt
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Ejecutar cada 10 minutos
+  workflow_dispatch:  # Permitir ejecución manual
+
+jobs:
+  procesar-comandos:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Clonar el repositorio privado
+      - name: Clonar repositorio privado
+        uses: actions/checkout@v3
+        with:
+          repository: 'usuario/repositorio-privado'  # Reemplazar con el nombre del repositorio privado
+          token: ${{ secrets.GH_TOKEN }}
+
+      # Paso 2: Configurar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Paso 3: Instalar dependencias (si hubiera)
+      - name: Instalar dependencias (si hubiera)
+        run: pip install -r requirements.txt || true
+
+      # Paso 4: Ejecutar script Python para procesar archivos .txt
+      - name: Ejecutar script Python para procesar archivos .txt
+        run: python scriptAgrega.py  # Este es el script que lee y elimina los archivos .txt
+
+      # Paso 5: Ejecutar script Python para generar el hash y guardarlo
+      - name: Ejecutar script Python para generar el hash y guardarlo
+        run: python firma.py  # Este es el script que genera el hash y lo guarda en signature
